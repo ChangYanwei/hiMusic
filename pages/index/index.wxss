@@ -1,0 +1,90 @@
+@import '/static/iconfont/iconfont.wxss';
+
+/* 轮播图 */
+.banner image {
+	width: 100%;
+	height: 100%;
+}
+
+/* 导航区域 */
+.navContainer {
+	display: flex;
+	justify-content: space-around;
+}
+
+.navItem {
+	text-align: center;
+	margin: 20rpx 0;
+}
+
+.iconfont {
+	display: block;
+	width: 100rpx;
+	height: 100rpx;
+	border-radius: 50%;
+	background-color: red;
+	color: white;
+	text-align: center;
+	line-height: 100rpx;
+	font-size: 40rpx;
+}
+
+.icon-recommend {
+	font-size: 50rpx;
+}
+
+.navText {
+	font-size: 26rpx;
+}
+
+/* 歌曲推荐 */
+.recommendContainer {
+	padding: 0 20rpx;
+}
+
+.recommendTitle {
+	color: #ccc;
+}
+
+.recommendSubTitle {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.recommendSubTitle text {
+	font-size: 34rpx;
+}
+
+.recommendMore {
+	border: 2rpx solid black;
+	border-radius: 20rpx;
+	padding: 10rpx 20rpx;
+	font-size: 26rpx;
+}
+
+.songContainer {
+	display: flex;
+	margin-top: 20rpx;
+}
+
+.recommendSong {
+	width: 200rpx;
+	margin-right: 20rpx;
+	text-align: center;
+}
+
+.recommendSong image {
+	width: 200rpx;
+	height: 200rpx;
+	border-radius: 16rpx;
+}
+
+.recommendSong text {
+	font-size: 28rpx;
+	/* 多行文本溢出隐藏 */
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}

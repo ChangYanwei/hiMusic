@@ -1,0 +1,67 @@
+<!-- 轮播图区域 -->
+<swiper class="banner" indicator-dots="true" indicator-color="white" indicator-active-color="red" autoplay interval="2000">
+	<swiper-item wx:for="{{banner}}" wx:key="targetId">
+		<image src="{{item.imageUrl}}"></image>
+	</swiper-item>
+</swiper>
+
+<!-- 导航区域 -->
+<view class="navContainer">
+	<view class="navItem">
+		<text class="iconfont icon-recommend"></text>
+		<text class="navText">每日推荐</text>
+	</view>
+
+	<view class="navItem">
+		<text class="iconfont icon-music"></text>
+		<text class="navText">音乐</text>
+	</view>
+
+	<view class="navItem">
+		<text class="iconfont icon-rank"></text>
+		<text class="navText">排行榜</text>
+	</view>
+
+	<view class="navItem">
+		<text class="iconfont icon-radio"></text>
+		<text class="navText">电台</text>
+	</view>
+
+	<view class="navItem">
+		<text class="iconfont icon-live-broadcast"></text>
+		<text class="navText">直播</text>
+	</view>
+</view>
+
+<!-- 歌曲推荐 -->
+<view class="recommendContainer">
+	<view class="recommendTitle">推荐歌曲</view>
+	<view class="recommendSubTitle">
+		<text>为您精心推荐</text>
+		<view class="recommendMore">全部更多</view>
+	</view>
+
+	<scroll-view scroll-x enable-flex class="songContainer">
+		<view class='recommendSong'>
+			<image src="/static/images/nvsheng.jpg"></image>
+			<text>[华宇新哥][华宇新哥][华宇新哥][华宇新哥][华宇新哥]</text>
+		</view>
+		<view class='recommendSong'>
+			<image src="/static/images/nvsheng.jpg"></image>
+			<text>[华宇新哥]</text>
+		</view>
+		<view class='recommendSong'>
+			<image src="/static/images/nvsheng.jpg"></image>
+			<text>[华宇新哥]</text>
+		</view>
+		<view class='recommendSong'>
+			<image src="/static/images/nvsheng.jpg"></image>
+			<text>[华宇新哥]</text>
+		</view>
+		<view class='recommendSong'>
+			<image src="/static/images/nvsheng.jpg"></image>
+			<text>[华宇新哥]</text>
+		</view>
+
+	</scroll-view>
+</view>
