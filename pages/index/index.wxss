@@ -1,4 +1,3 @@
-@import '/static/iconfont/iconfont.wxss';
 
 /* 轮播图 */
 .banner image {
@@ -40,31 +39,12 @@
 /* 歌曲推荐 */
 .recommendContainer {
 	padding: 0 20rpx;
-}
-
-.recommendTitle {
-	color: #ccc;
-}
-
-.recommendSubTitle {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.recommendSubTitle text {
-	font-size: 34rpx;
-}
-
-.recommendMore {
-	border: 2rpx solid black;
-	border-radius: 20rpx;
-	padding: 10rpx 20rpx;
-	font-size: 26rpx;
+	margin-bottom: 50rpx;
 }
 
 .songContainer {
 	display: flex;
+	align-items: center;
 	margin-top: 20rpx;
 }
 
@@ -88,3 +68,51 @@
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 }
+
+/* 排行榜 */
+.rankContainer {
+	margin: 0 20rpx;
+}
+
+.topListSwiper {
+	height: 710rpx;
+	margin-bottom: 20rpx;
+}
+
+.topListTitle {
+	margin: 20rpx 0;
+	font-size: 36rpx;
+}
+
+.swiperItem {
+	box-sizing: border-box;
+	width: 96%;
+	background-color: #fbfbfb;
+	padding: 10rpx;
+	margin-top: 20rpx;
+}
+
+.musicItem {
+	display: flex;
+	align-items: center;
+	margin-bottom: 20rpx;
+}
+
+.musicItem image {
+	width: 100rpx;
+	height: 100rpx;
+	border-radius: 10rpx;
+}
+
+.topListRank {
+	margin: 0 100rpx;
+}
+
+.topListMusicName {
+	width: 320rpx;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow:ellipsis;
+}
+
+

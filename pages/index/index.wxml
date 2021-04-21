@@ -1,5 +1,5 @@
 <!-- 轮播图区域 -->
-<swiper class="banner" indicator-dots="true" indicator-color="white" indicator-active-color="red" autoplay interval="2000">
+<swiper class="banner" circular indicator-dots="true" indicator-color="white" indicator-active-color="red" autoplay interval="2000">
 	<swiper-item wx:for="{{banner}}" wx:key="targetId">
 		<image src="{{item.imageUrl}}"></image>
 	</swiper-item>
@@ -8,60 +8,57 @@
 <!-- 导航区域 -->
 <view class="navContainer">
 	<view class="navItem">
-		<text class="iconfont icon-recommend"></text>
+		<text class="iconfont icon-shouyebaise"></text>
 		<text class="navText">每日推荐</text>
 	</view>
 
 	<view class="navItem">
-		<text class="iconfont icon-music"></text>
+		<text class="iconfont icon-yinyue"></text>
 		<text class="navText">音乐</text>
 	</view>
 
 	<view class="navItem">
-		<text class="iconfont icon-rank"></text>
+		<text class="iconfont icon-paihangbangweixuanzhong"></text>
 		<text class="navText">排行榜</text>
 	</view>
 
 	<view class="navItem">
-		<text class="iconfont icon-radio"></text>
+		<text class="iconfont icon-diantai"></text>
 		<text class="navText">电台</text>
 	</view>
 
 	<view class="navItem">
-		<text class="iconfont icon-live-broadcast"></text>
+		<text class="iconfont icon-zhibobofangshexiangjitianxianxianxing1"></text>
 		<text class="navText">直播</text>
 	</view>
 </view>
 
 <!-- 歌曲推荐 -->
 <view class="recommendContainer">
-	<view class="recommendTitle">推荐歌曲</view>
-	<view class="recommendSubTitle">
-		<text>为您精心推荐</text>
-		<view class="recommendMore">全部更多</view>
-	</view>
+	<nav-header title="推荐歌曲" subTitle="为您精心推荐"></nav-header>
 
 	<scroll-view scroll-x enable-flex class="songContainer">
-		<view class='recommendSong'>
-			<image src="/static/images/nvsheng.jpg"></image>
-			<text>[华宇新哥][华宇新哥][华宇新哥][华宇新哥][华宇新哥]</text>
+		<view wx:for="{{recommend}}" wx:for-item="recommendItem" wx:key="id" class='recommendSong'>
+			<image src="{{recommendItem.picUrl}}"></image>
+			<text>{{recommendItem.name}}</text>
 		</view>
-		<view class='recommendSong'>
-			<image src="/static/images/nvsheng.jpg"></image>
-			<text>[华宇新哥]</text>
-		</view>
-		<view class='recommendSong'>
-			<image src="/static/images/nvsheng.jpg"></image>
-			<text>[华宇新哥]</text>
-		</view>
-		<view class='recommendSong'>
-			<image src="/static/images/nvsheng.jpg"></image>
-			<text>[华宇新哥]</text>
-		</view>
-		<view class='recommendSong'>
-			<image src="/static/images/nvsheng.jpg"></image>
-			<text>[华宇新哥]</text>
-		</view>
-
 	</scroll-view>
+</view>
+
+<!-- 排行榜 -->
+<view class="rankContainer">
+	<nav-header title="排行榜" subTitle="热歌风向标"></nav-header>
+
+	<swiper class="topListSwiper" next-margin="50rpx" circular>
+		<swiper-item wx:for="{{rankingData}}" wx:key="id">
+			<view class="swiperItem">
+				<view class="topListTitle">{{item.name}}>></view>
+				<view class="musicItem" wx:for="{{item.list}}" wx:for-item="musicItem" wx:for-index="musicIndex" wx:key="id">
+					<image src="{{musicItem.al.picUrl}}"></image>
+					<text class="topListRank">{{musicIndex + 1}}</text>
+					<text class="topListMusicName">{{musicItem.al.name}}</text>
+				</view>
+			</view>
+		</swiper-item>
+	</swiper>
 </view>

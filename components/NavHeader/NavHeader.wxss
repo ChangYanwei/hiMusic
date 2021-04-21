@@ -1,0 +1,20 @@
+.title {
+	color: #ccc;
+}
+
+.subTitle {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.subTitle .navTitle {
+	font-size: 34rpx;
+}
+
+.more {
+	border: 2rpx solid black;
+	border-radius: 20rpx;
+	padding: 10rpx 20rpx;
+	font-size: 26rpx;
+}

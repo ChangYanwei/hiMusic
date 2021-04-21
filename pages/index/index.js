@@ -8,25 +8,58 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		banner:[]
+		banner: [],
+		recommend: [],
+		rankingData:[]
+	},
+
+	async getRankingData() {
+			let rankingData = []
+			let promises = [];
+			for(let i = 0;i < 5;i++) {
+				promises.push(request('/top/list',{idx:i}));
+			}
+			Promise.all(promises).then(data => {	
+				for(let i = 0;i < data.length;i++) {
+					let obj = {};
+					let playlist = data[i].playlist;
+					
+					obj.name = playlist.name;
+					obj.id = playlist.id;
+					obj.list = playlist.tracks.slice(0,5);
+					rankingData.push(obj);
+
+					// 用户体验较好，每次得到一个请求的数据就渲染一次页面
+					this.setData({
+						rankingData
+					})
+				}
+				console.log(rankingData);
+
+			})
+			
 	},
 
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
+		// 轮播图数据
 		request('/banner').then(res => {
 			this.setData({
-				banner:res.banners
+				banner: res.banners
 			})
-		}).catch(err => {
-			wx.showToast({
-			  title: err,
-			  icon:'error',
-			  duration:2000,
-			  mask:true
+		});
+
+		// 推荐歌曲
+		request('/personalized',{limit:10}).then(res => {
+			this.setData({
+				recommend: res.result
 			})
-		})
+		});
+
+		// 排行榜
+		this.getRankingData();
 	},
 
 	/**

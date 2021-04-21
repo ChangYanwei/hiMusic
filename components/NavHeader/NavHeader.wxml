@@ -1,0 +1,7 @@
+<view>
+	<view class="title">{{title}}</view>
+	<view class="subTitle">
+		<text class="navTitle">{{subTitle}}</text>
+		<view class="more">全部更多</view>
+	</view>
+</view>

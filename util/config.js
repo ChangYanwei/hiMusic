@@ -1,4 +1,4 @@
 // 进一步降低耦合度
 export default {
-	host: 'http://localhost:3000'
+	host: 'http://127.0.0.1:3000'
 }

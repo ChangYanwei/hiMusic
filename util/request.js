@@ -9,12 +9,16 @@ export default function (url, data = {}, method='GET') {
 			url: config.host + url,
 			data,
 			method,
-			success(res) {
+			success(res) {		
 				resolve(res.data)
 			},
 			fail(err) {
-				console.log(err);
-				reject('出错啦！请重试')
+				wx.showToast({
+					title: '出错啦！请重试',
+					icon:'error',
+					duration:2000,
+					mask:true
+				  })
 			}
 		})
 	})
