@@ -8,37 +8,48 @@
 	</view>
 
 	<!-- 导航区域 -->
-	<scroll-view scroll-x>
-		<view class="navItem">
-			<view class="navContent">
-				搜索
+	<scroll-view class="navContainer" enable-flex scroll-x scroll-into-view="{{'nav' + navId}}" scroll-with-animation>
+		<view class="navItem" id="{{'nav' + item.id}}" wx:for="{{navList}}" wx:key="id">
+			<view class="navContent" data-id="{{item.id}}" bindtap="changeNav" class="{{navId === item.id ? 'active' : ''}}">
+				{{item.name}}
 			</view>
 		</view>
-
-		<view class="navItem">
-			<view class="navContent">
-				现场
-			</view>
-		</view>
-
-		<view class="navItem">
-			<view class="navContent">
-				听BGM
-			</view>
-		</view>
-
-		<view class="navItem">
-			<view class="navContent">
-				舞蹈
-			</view>
-		</view>
-
-		<view class="navItem">
-			<view class="navContent">
-				万有引力
-			</view>
-		</view>
-
-
 	</scroll-view>
+
+	<!-- 视频列表区域 -->
+	<scroll-view scroll-y class="videoScroll">
+		<view class="videoItem" wx:for="{{videoList}}" wx:key="id">
+
+			<view class="videoHeader">
+				<view class="creatorInfo">
+					<image class="avatar" src="{{item.data.creator.avatarUrl}}"></image>
+					<text class="nickname">{{item.data.creator.nickname}}</text>
+				</view>
+
+				<view class="countData">
+					<view class="praise">
+						<text class="iconfont icon-xinaixin1"></text>
+						<text class="count">{{item.data.praisedCount}}</text>
+					</view>
+					<view class="comment">
+						<text class="iconfont icon-pinglun"></text>
+						<text class="count">{{item.data.commentCount}}</text>
+					</view>
+					<button open-type="share" class="shareBtn">
+						<text class="iconfont icon-fenxiangdaozhuanfafasongzhiyuanquanxianxing"></text>
+					</button>
+				</view>
+
+			</view>
+			<video src="{{item.data.urlInfo.url}}"></video>
+			<view class="title">{{item.data.title}}</view>
+		</view>
+	</scroll-view>
+
+	<!--  -->
+	<view class="blank" wx:if="{{noData}}">
+		<image src="/static/images/video/blank.png"></image>
+	</view>
+
+
 </view>

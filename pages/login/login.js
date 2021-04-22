@@ -1,5 +1,4 @@
-
-import request from "../../util/request";
+import loginRequest from "../../util/loginRequest";
 
 Page({
 
@@ -11,66 +10,71 @@ Page({
 		password: ""
 	},
 
-	handleInput(event) {		
+	handleInput(event) {
 		let type = event.target.id;
 		let value = event.detail.value;
 		this.setData({
-			[type]:value
+			[type]: value
 		});
 	},
 
 	login() {
 
 		// 前端验证
-		let {phone,password} = this.data;
-		if(!phone) {
+		let {
+			phone,
+			password
+		} = this.data;
+		if (!phone) {
 			wx.showToast({
-			  title: '手机号不能为空',
-			  icon:"none"
+				title: '手机号不能为空',
+				icon: "none"
 			});
 			return;
 		}
 
 		let regx = /^1\d{10}$/;
-		if(!regx.test(phone)) {
+		if (!regx.test(phone)) {
 			wx.showToast({
-				title:"手机号格式错误",
-				icon:"none"
+				title: "手机号格式错误",
+				icon: "none"
 			});
 			return;
 		}
 
-		if(password.length < 6) {
+		if (password.length < 6) {
 			wx.showToast({
-			  title: '密码长度不能少于6位',
-			  icon:"none"
+				title: '密码长度不能少于6位',
+				icon: "none"
 			});
 			return;
 		}
 
 		// 后端验证
-
-		request('/login/cellphone',{phone,password}).then(res => {
-			if(res.code === 200) {
+		loginRequest('/login/cellphone', {
+			phone,
+			password
+		}).then(res => {
+			if (res.code === 200) {
 				wx.showToast({
-				  title: '登录成功'
+					title: '登录成功'
 				});
 
 				let userData = {
-					nickname:res.profile.nickname,
-					avatarUrl:res.profile.avatarUrl,
-					uid:res.profile.userId
+					nickname: res.profile.nickname,
+					avatarUrl: res.profile.avatarUrl,
+					uid: res.profile.userId
 				};
 
 				wx.setStorageSync('userinfo', JSON.stringify(userData));
-				
+
 				wx.reLaunch({
-				  url:"/pages/personal/personal"
+					url: "/pages/personal/personal"
 				})
 			} else {
 				wx.reLaunch({
-				  title: '账号或密码错误',
-				  icon:"fail"
+					title: '账号或密码错误',
+					icon: "fail"
 				})
 			}
 		})
