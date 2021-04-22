@@ -2,8 +2,12 @@
 	<!-- 头部用户信息 -->
 	<view class="user">
 		<image class="bgImg" src="/static/images/personal/bgImg2.jpg"></image>
-		<view class="userInfo">
-			<image class="portrait" src="/static/images/personal/missing-face.png"></image>
+		<view wx:if="{{isLogin}}" class="userInfo">
+			<image class="portrait" src="{{userinfo.avatarUrl}}"></image>
+			<text>{{userinfo.nickname}}</text>
+		</view>
+		<view wx:else class="userInfo">
+			<image bindtap="toLogin" class="portrait" src="/static/images/personal/missing-face.png"></image>
 			<text>游客</text>
 		</view>
 
@@ -54,7 +58,17 @@
 		<!-- 底部菜单栏 -->
 		<view class="menu">
 			<text class="recentPlay">最近播放</text>
-			<view class="record">暂无播放记录</view>
+			<view class="record">
+				<view wx:if="{{hasRecord}}">
+					<scroll-view enable-flex scroll-x class="recordScroll">
+						<view wx:for="{{recordSong}}" wx:key="id"  class="itemSong">
+							<image src="{{item.song.al.picUrl}}"></image>
+							<text>{{item.song.al.name}}</text>
+						</view>
+					</scroll-view>
+				</view>
+				<text wx:else>暂无播放记录</text>
+			</view>
 			<view class="menuItem">
 				<text>我的音乐</text>
 				<text>></text>
@@ -69,7 +83,5 @@
 			</view>
 		</view>
 	</view>
-
-
 
 </view>

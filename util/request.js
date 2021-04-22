@@ -13,12 +13,7 @@ export default function (url, data = {}, method='GET') {
 				resolve(res.data)
 			},
 			fail(err) {
-				wx.showToast({
-					title: '出错啦！请重试',
-					icon:'error',
-					duration:2000,
-					mask:true
-				  })
+				reject("出错啦！请重试")
 			}
 		})
 	})

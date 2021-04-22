@@ -1,0 +1,25 @@
+<view class="loginContainer">
+	<view class="title">
+		<text>欢迎回来</text>
+	</view>
+
+	<view class="inputContent">
+		<form class="loginForm">
+			<view class="inputItem">
+				<text>手机号码</text>
+				<input type="number" name="phone" id="phone" placeholder="请输入手机号码" bindinput="handleInput"></input>
+			</view>
+			<view class="inputItem">
+				<text>密码</text>
+				<input password="true" name="password" id="password" placeholder="请输入密码" bindinput="handleInput"></input>
+			</view>
+			<button class="loginBtn" form-type="submit" bindtap="login">登录</button>
+		</form>
+		<view class="missPwd">忘记密码</view>
+	</view>
+
+	<view class="register">
+		<text>还没有账号？</text>
+		<text class="registerLink">马上注册</text>
+	</view>
+</view>

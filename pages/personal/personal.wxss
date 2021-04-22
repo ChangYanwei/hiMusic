@@ -134,6 +134,29 @@
 	font-size: 26rpx;
 }
 
+/* 最近播放 */
+.recordScroll {
+	display: flex;
+	align-items: flex-start;
+}
+
+.itemSong {
+	margin-right: 30rpx;
+}
+
+.itemSong image {
+	width: 200rpx;
+	height: 200rpx;
+	border-radius: 10rpx;
+}
+
+.itemSong text {
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
 /* 底部菜单 */
 .menu {
 	background-color: #fff;
