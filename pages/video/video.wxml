@@ -16,8 +16,13 @@
 		</view>
 	</scroll-view>
 
+	<!-- 没有数据时显示一张图片 -->
+	<view class="blank" wx:if="{{noData}}">
+		<image src="/static/images/video/blank.png"></image>
+	</view>
+
 	<!-- 视频列表区域 -->
-	<scroll-view scroll-y class="videoScroll">
+	<scroll-view wx:else scroll-y class="videoScroll" refresher-enabled refresher-triggered="{{refreshTrigger}}" bindrefresherpulling="handleRefresh" refresher-threshold="90">
 		<view class="videoItem" wx:for="{{videoList}}" wx:key="id">
 
 			<view class="videoHeader">
@@ -41,15 +46,12 @@
 				</view>
 
 			</view>
-			<video src="{{item.data.urlInfo.url}}"></video>
+			<video wx:if="{{videoId === item.data.vid}}" id="{{item.data.vid}}" src="{{item.data.urlInfo.url}}" bindplay="handlePlay" object-fit="fill" bindtimeupdate="updateTime" bindended="handleVideoEnd"></video>
+
+			<!-- 	不建议同个页面使用多个video组件，建议不超过3个video，如果要实现video列表功能，进行优化（image列表，选中时将image替换成video） -->
+			<image wx:else bindtap="handlePlay" id="{{item.data.vid}}" src="{{item.data.coverUrl}}" class="coverUrl"></image>
 			<view class="title">{{item.data.title}}</view>
 		</view>
 	</scroll-view>
-
-	<!--  -->
-	<view class="blank" wx:if="{{noData}}">
-		<image src="/static/images/video/blank.png"></image>
-	</view>
-
 
 </view>
