@@ -1,5 +1,5 @@
 import request from '../../util/request';
-
+import PubSub from 'pubsub-js';
 
 Page({
 
@@ -9,7 +9,8 @@ Page({
 	data: {
 		day: "",
 		month: "",
-		recommendList:[]
+		recommendList: [],
+		index: 0
 	},
 
 	// 获取当前日期
@@ -27,16 +28,19 @@ Page({
 			cookie: wx.getStorageSync('cookie') ? wx.getStorageSync('cookie').join('') : ''
 		});
 		this.setData({
-			recommendList:data.recommend
+			recommendList: data.recommend
 		})
 	},
 
 	// 跳转到音乐播放页面
-	toSongDetail(event){
+	toSongDetail(event) {
 		let id = event.currentTarget.id;
-		console.log('id:',id);
+		let index = event.currentTarget.dataset.index;
+		this.setData({
+			index
+		});
 		wx.navigateTo({
-		  url: '/pages/songDetail/songDetail?id=' + JSON.stringify(id),
+			url: '/pages/songDetail/songDetail?id=' + JSON.stringify(id),
 		})
 	},
 
@@ -53,6 +57,41 @@ Page({
 		}
 		this.getDate();
 		this.getRecommendSong();
+
+		// 订阅来自songDetail页面发布的数据
+		PubSub.subscribe('switchType', (msg, type) => {
+			let {
+				index,
+				recommendList
+			} = this.data;
+
+			if (type === 'pre') {
+				// 如果当前是第一首，点击上一首，要转到最后一首
+				index = index === 0 ? recommendList.length - 1 : --index;
+			} else if (type === 'next') {
+				// 如果当前是最后一首，点击下一首，要转到第一首
+				index = index === recommendList.length - 1 ? 0 : ++index;
+			} else if(type === 'random') {
+				// 随机播放
+				while(true) {
+					let newIndex = Math.floor(Math.random() * recommendList.length);
+					if(newIndex !== index) {
+						index = newIndex;
+						break;
+					}
+				}
+			} else if(type === 'loop') {
+				// 循环播放
+				
+			}
+
+			this.setData({
+				index
+			})
+			let id = recommendList[index].id;
+			// 将音乐的id发送给songDetail页面
+			PubSub.publish('musicId', id);
+		})
 	},
 
 	/**

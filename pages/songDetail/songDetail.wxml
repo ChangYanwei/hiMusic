@@ -6,12 +6,29 @@
 		<image class="disc" src="/static/images/song/disc.png"></image>
 		<image class="songImg" src="{{songDetail.picUrl}}"></image>
 	</view>
+
+	<!-- 进度条控制区域 -->
+	<view class="progressControl">
+		<view>{{currentTime}}</view>
+		<!-- 总进度条 -->
+		<!-- <view class="barControl">
+			<view class="audioCurrentTimeBar" style="width:{{currentWidth}}rpx">
+				<view class="audioCircle"></view>
+			</view>
+		</view> -->
+		<slider class="musicBar" min="0" max="{{sliderMax}}" value="{{nowTimeSecond}}" block-size="15" bindchange="changeCurrentTime" />
+		<view>{{durationTime}}</view>
+	</view>
+
+
+	<!-- 底部音乐按钮 -->
 	<view class="btns">
-		<text class="iconfont icon-suiji"></text>
-		<text class="iconfont icon-shangyige"></text>
-		<text class="iconfont {{isPlay ? 'icon-zantingtingzhi' : 'icon-bofang'}} big " bindtap="musicControl"></text>
-		<text class="iconfont icon-xiayigexiayishou"></text>
-		<text class="iconfont icon-gengduo1"></text>
+		<text class="iconfont icon-suiji" id="random" bindtap="handleSwitch"></text>
+		<text class="iconfont icon-shangyige" id="pre" bindtap="handleSwitch"></text>
+		<text class="iconfont {{isPlay ? 'icon-zantingtingzhi' : 'icon-bofang'}} big "
+			bindtap="handleMusicPlay"></text>
+		<text class="iconfont icon-xiayigexiayishou" id="next" bindtap="handleSwitch"></text>
+		<text class="iconfont icon-gengduo1" id="loop"></text>
 	</view>
 
 </view>

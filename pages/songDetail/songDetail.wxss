@@ -79,6 +79,45 @@
 	height: 100rpx;
 }
 
+/* 进度条 */
+.progressControl {
+	position: absolute;
+	bottom: 240rpx;
+	width: 640rpx;
+	height: 80rpx;
+	line-height: 80rpx;
+	display: flex;
+	align-items: center;
+}
+
+.barControl {
+	width: 450rpx;
+	height: 4rpx;
+	margin: auto;
+	background-color:rgba(0,0,0,0.4);
+}
+
+.audioCurrentTimeBar {
+	position: relative;
+	height: 4rpx;
+	background-color: red;
+}
+
+.audioCircle {
+	width: 20rpx;
+	height: 20rpx;
+	border-radius: 50%;
+	background-color: #fff;
+	position: absolute;
+	top: -8rpx;
+	right: -20rpx;
+}
+
+.musicBar {
+	display: inline-block;
+	width: 450rpx;
+}
+
 /* 底部按钮 */
 .btns {
 	position: absolute;

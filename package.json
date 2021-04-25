@@ -1,0 +1,23 @@
+{
+  "name": "himusic",
+  "version": "1.0.0",
+  "description": "音乐类小程序",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChangYanwei/hiMusic.git"
+  },
+  "author": "ChangYanwei",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChangYanwei/hiMusic/issues"
+  },
+  "homepage": "https://github.com/ChangYanwei/hiMusic#readme",
+  "dependencies": {
+    "moment": "^2.29.1",
+    "pubsub-js": "^1.9.3"
+  }
+}
