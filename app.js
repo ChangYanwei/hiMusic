@@ -14,6 +14,7 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    isMusicPlay:false, // 是否有音乐在播放
+    musicId:""
   }
 })

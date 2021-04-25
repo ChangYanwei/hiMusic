@@ -1,4 +1,3 @@
-
 /* 轮播图 */
 .banner image {
 	width: 100%;
@@ -28,7 +27,8 @@
 	font-size: 40rpx;
 }
 
-.icon-recommend {
+.icon-recommend,
+.icon-shouyebaise {
 	font-size: 50rpx;
 }
 
@@ -112,7 +112,5 @@
 	width: 320rpx;
 	overflow: hidden;
 	white-space: nowrap;
-	text-overflow:ellipsis;
+	text-overflow: ellipsis;
 }
-
-

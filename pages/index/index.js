@@ -13,6 +13,14 @@ Page({
 		rankingData:[]
 	},
 
+	// 跳转到每日推荐
+	toRecommend(){
+		wx.navigateTo({
+		  url: '/pages/recommendSong/recommendSong'
+		})
+	},
+
+	// 获取热歌榜
 	async getRankingData() {
 			let rankingData = []
 			let promises = [];
@@ -34,8 +42,6 @@ Page({
 						rankingData
 					})
 				}
-				console.log(rankingData);
-
 			})
 			
 	},

@@ -1,91 +1,93 @@
 {
-	"description": "项目配置文件",
-	"packOptions": {
-		"ignore": []
-	},
-	"setting": {
-		"urlCheck": false,
-		"es6": true,
-		"enhance": true,
-		"postcss": true,
-		"preloadBackgroundData": false,
-		"minified": true,
-		"newFeature": false,
-		"coverView": true,
-		"nodeModules": false,
-		"autoAudits": false,
-		"showShadowRootInWxmlPanel": true,
-		"scopeDataCheck": false,
-		"uglifyFileName": false,
-		"checkInvalidKey": true,
-		"checkSiteMap": true,
-		"uploadWithSourceMap": true,
-		"compileHotReLoad": false,
-		"babelSetting": {
-			"ignore": [],
-			"disablePlugins": [],
-			"outputPath": ""
-		},
-		"useIsolateContext": true,
-		"useCompilerModule": false,
-		"userConfirmedUseCompilerModuleSwitch": false
-	},
-	"compileType": "miniprogram",
-	"libVersion": "2.16.0",
-	"appid": "wx0c9d39c7337f16c3",
-	"projectname": "music2",
-	"debugOptions": {
-		"hidedInDevtools": []
-	},
-	"scripts": {},
-	"isGameTourist": false,
-	"simulatorType": "wechat",
-	"simulatorPluginLibVersion": {},
-	"condition": {
-		"search": {
-			"current": -1,
-			"list": []
-		},
-		"conversation": {
-			"current": -1,
-			"list": []
-		},
-		"plugin": {
-			"current": -1,
-			"list": []
-		},
-		"game": {
-			"current": -1,
-			"list": []
-		},
-		"gamePlugin": {
-			"current": -1,
-			"list": []
-		},
-		"miniprogram": {
-			"current": -1,
-			"list": [
-				{
-					"id": -1,
-					"name": "个人中心",
-					"pathName": "pages/personal/personal",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "登录页",
-					"pathName": "pages/login/login",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "视频页",
-					"pathName": "pages/video/video",
-					"scene": null
-				}
-			]
-		}
-	}
+      "description": "项目配置文件",
+      "packOptions": {
+            "ignore": []
+      },
+      "setting": {
+            "urlCheck": false,
+            "es6": true,
+            "enhance": true,
+            "postcss": true,
+            "preloadBackgroundData": false,
+            "minified": true,
+            "newFeature": false,
+            "coverView": true,
+            "nodeModules": false,
+            "autoAudits": false,
+            "showShadowRootInWxmlPanel": true,
+            "scopeDataCheck": false,
+            "uglifyFileName": false,
+            "checkInvalidKey": true,
+            "checkSiteMap": true,
+            "uploadWithSourceMap": true,
+            "compileHotReLoad": false,
+            "useMultiFrameRuntime": true,
+            "babelSetting": {
+                  "ignore": [],
+                  "disablePlugins": [],
+                  "outputPath": ""
+            },
+            "bundle": false,
+            "useIsolateContext": true,
+            "useCompilerModule": false,
+            "userConfirmedUseCompilerModuleSwitch": false,
+            "userConfirmedBundleSwitch": false,
+            "packNpmManually": false,
+            "packNpmRelationList": [],
+            "minifyWXSS": true,
+            "useApiHook": true,
+            "useApiHostProcess": false
+      },
+      "compileType": "miniprogram",
+      "libVersion": "2.16.0",
+      "appid": "wx0c9d39c7337f16c3",
+      "projectname": "hiMusic",
+      "debugOptions": {
+            "hidedInDevtools": []
+      },
+      "scripts": {},
+      "isGameTourist": false,
+      "simulatorType": "wechat",
+      "simulatorPluginLibVersion": {},
+      "condition": {
+            "search": {
+                  "list": []
+            },
+            "conversation": {
+                  "list": []
+            },
+            "plugin": {
+                  "list": []
+            },
+            "game": {
+                  "list": []
+            },
+            "gamePlugin": {
+                  "list": []
+            },
+            "miniprogram": {
+                  "list": [
+                        {
+                              "id": -1,
+                              "name": "个人中心",
+                              "pathName": "pages/personal/personal",
+                              "query": "",
+                              "scene": null
+                        },
+                        {
+                              "id": -1,
+                              "name": "登录页",
+                              "pathName": "pages/login/login",
+                              "query": "",
+                              "scene": null
+                        },
+                        {
+                              "id": -1,
+                              "name": "视频页",
+                              "pathName": "pages/video/video",
+                              "scene": null
+                        }
+                  ]
+            }
+      }
 }

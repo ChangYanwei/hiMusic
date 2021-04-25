@@ -3,7 +3,9 @@
 		"pages/index/index",
 		"pages/video/video",
 		"pages/personal/personal",
-		"pages/login/login"
+		"pages/login/login",
+		"pages/recommendSong/recommendSong",
+		"pages/songDetail/songDetail"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
@@ -37,5 +39,6 @@
 		]
 	},
 	"style": "v2",
-	"sitemapLocation": "sitemap.json"
+	"sitemapLocation": "sitemap.json",
+	"requiredBackgroundModes":["audio", "location"]
 }

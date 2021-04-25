@@ -1,0 +1,102 @@
+.songDetailContainer {
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.author {
+	margin-top: 20rpx;
+	color: #fff;
+}
+
+.circle {
+	width: 60rpx;
+	height: 60rpx;
+	border-radius: 50%;
+	background-color: #fff;
+	margin-top: 10rpx;
+	z-index: 100;
+}
+
+/* 摇杆 */
+.needle {
+	position: relative;
+	left: 60rpx;
+	top: -40rpx;
+	width: 192rpx;
+	height: 294rpx;
+	z-index: 10;
+	/* 设置旋转元素的基点位置 */
+	transform-origin: 40rpx 0;
+	transform: rotate(-20deg);
+	transition: transform 0.5s;
+}
+
+.needleRoute {
+	transform: rotate(0);
+}
+
+.discContainer {
+	position: relative;
+	top: -170rpx;
+	width: 600rpx;
+	height: 600rpx;
+}
+
+@keyframes disc {
+	from {}
+
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.discAnimation {
+	animation: disc 3s linear infinite;
+	/* 需要等到摇杆落到磁盘上（耗时0.5s，因为前边我们设置摇杆的transition属性为0.5s），磁盘才转动。 */
+	animation-delay: 0.5s;
+}
+
+.disc {
+	width: 100%;
+	height: 100%;
+}
+
+.songImg {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 400rpx;
+	height: 400rpx;
+	border-radius: 50%;
+}
+
+/* 音乐播放器 */
+.audio {
+	height: 100rpx;
+}
+
+/* 底部按钮 */
+.btns {
+	position: absolute;
+	bottom: 80rpx;
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	color: #fff;
+	padding-top: 40rpx;
+	border-top: 1rpx solid #fff;
+}
+
+.btns .iconfont {
+	font-size: 50rpx;
+}
+
+.btns .big {
+	font-size: 80rpx;
+}
+

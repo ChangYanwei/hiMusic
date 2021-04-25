@@ -8,7 +8,7 @@
 <!-- 导航区域 -->
 <view class="navContainer">
 	<view class="navItem">
-		<text class="iconfont icon-shouyebaise"></text>
+		<text class="iconfont icon-shouyebaise" bindtap="toRecommend"></text>
 		<text class="navText">每日推荐</text>
 	</view>
 

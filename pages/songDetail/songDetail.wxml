@@ -1,0 +1,17 @@
+<view class="songDetailContainer">
+	<view class="author">歌手：{{songDetail.author}}</view>
+	<view class="circle"></view>
+	<image class="needle {{isPlay ? 'needleRoute' : ''}}" src="/static/images/song/needle.png"></image>
+	<view class="discContainer {{isPlay && 'discAnimation'}}">
+		<image class="disc" src="/static/images/song/disc.png"></image>
+		<image class="songImg" src="{{songDetail.picUrl}}"></image>
+	</view>
+	<view class="btns">
+		<text class="iconfont icon-suiji"></text>
+		<text class="iconfont icon-shangyige"></text>
+		<text class="iconfont {{isPlay ? 'icon-zantingtingzhi' : 'icon-bofang'}} big " bindtap="musicControl"></text>
+		<text class="iconfont icon-xiayigexiayishou"></text>
+		<text class="iconfont icon-gengduo1"></text>
+	</view>
+
+</view>

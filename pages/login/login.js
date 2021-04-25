@@ -50,15 +50,22 @@ Page({
 			return;
 		}
 
+		wx.showLoading({
+		  title: '正在登录...',
+		})
+
 		// 后端验证
 		loginRequest('/login/cellphone', {
 			phone,
 			password
 		}).then(res => {
 			if (res.code === 200) {
+				wx.hideLoading();
+
 				wx.showToast({
 					title: '登录成功'
 				});
+
 
 				let userData = {
 					nickname: res.profile.nickname,
