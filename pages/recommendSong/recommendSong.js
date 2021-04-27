@@ -24,12 +24,16 @@ Page({
 
 	// 获取每日推荐歌曲
 	async getRecommendSong() {
+		wx.showLoading({
+		  title: '努力加载中...'
+		})
 		let data = await request('/recommend/songs', {}, 'GET', {
 			cookie: wx.getStorageSync('cookie') ? wx.getStorageSync('cookie').join('') : ''
 		});
 		this.setData({
 			recommendList: data.recommend
 		})
+		wx.hideLoading();
 	},
 
 	// 跳转到音乐播放页面

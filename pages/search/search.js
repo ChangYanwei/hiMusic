@@ -1,4 +1,5 @@
 import request from '../../util/request';
+import PubSub from 'pubsub-js';
 
 Page({
 
@@ -12,6 +13,7 @@ Page({
 		searchResultList: [], // 搜索到的数据
 		timer: null,
 		historyList: [], // 搜索历史
+		index: 0, // 点击某个搜索历史或排行榜的下标
 	},
 
 	// 获取默认搜索关键字
@@ -92,12 +94,12 @@ Page({
 	clearHistory() {
 		wx.showModal({
 			content: "是否要清除历史记录？",
-			success:res => {
+			success: res => {
 				console.log(res);
-				if(res.confirm) {
+				if (res.confirm) {
 					wx.removeStorageSync('searchHistory')
 					this.setData({
-						historyList:[]
+						historyList: []
 					})
 				}
 			}
@@ -105,24 +107,64 @@ Page({
 	},
 
 	// 跳转到视频页
-	toVideo(){
+	toVideo() {
 		wx.navigateBack();
 	},
 
 	// 点击搜索结果中的某一项，跳转到音乐播放界面
-	toSongDetail(event){
+	toSongDetail(event) {
 		let id = event.currentTarget.id;
 		wx.navigateTo({
-		  url: '/pages/songDetail/songDetail?id=' + id
+			url: '/pages/songDetail/songDetail?id=' + id
 		})
 	},
 
 	// 点击搜索历史或者热搜榜的某一项，自动进行搜索
-	handleSearch(event){	
-		let searchValue = event.currentTarget.dataset.searchValue;
+	handleSearch(event) {
+		let {
+			searchValue,
+			index
+		} = event.currentTarget.dataset;
 		this.getSearchResult(searchValue);
 		this.setData({
-			searchValue
+			searchValue,
+			index,
+		})
+	},
+
+	/*
+		因为可以从搜索界面跳转到音乐播放界面，所以需要订阅来自songDetail页面发布的状态（上/下一首） 
+	 */
+	nextAudio() {
+		PubSub.subscribe('switchType', (msg, type) => {
+			let {
+				searchResultList,
+				index
+			} = this.data;
+
+			if (type === 'pre') {
+				// 如果当前是第一首，点击上一首，要转到最后一首
+				index = index === 0 ? searchResultList.length - 1 : --index;
+			} else if (type === 'next') {
+				// 如果当前是最后一首，点击下一首，要转到第一首
+				index = index === searchResultList.length - 1 ? 0 : ++index;
+			} else if (type === 'random') {
+				// 随机播放
+				while (true) {
+					let newIndex = Math.floor(Math.random() * searchResultList.length);
+					if (newIndex !== index) {
+						index = newIndex;
+						break;
+					}
+				}
+			}
+
+			this.setData({
+				index
+			})
+			let id = searchResultList[index].id;
+			// 将音乐的id发送给songDetail页面
+			PubSub.publish('musicId', id);
 		})
 	},
 
@@ -136,7 +178,9 @@ Page({
 		let historyList = wx.getStorageSync('searchHistory') || [];
 		this.setData({
 			historyList
-		})
+		});
+
+		this.nextAudio();
 	},
 
 	/**

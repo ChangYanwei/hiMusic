@@ -33,7 +33,7 @@
 		<view class="historyContainer" wx:if="{{historyList.length > 0}}">
 			<text>搜索历史：</text>
 			<view class="historySearch">
-				<text class="historyItem" wx:for="{{historyList}}" wx:key="*this" data-search-value="{{item}}" bindtap="handleSearch">{{item}}</text>
+				<text class="historyItem" wx:for="{{historyList}}" wx:key="*this" data-search-value="{{item}}" data-index="{{index}}" bindtap="handleSearch">{{item}}</text>
 			</view>
 			<text class="iconfont icon-bin clearHistory" bindtap="clearHistory"></text>
 		</view>
@@ -42,7 +42,7 @@
 		<view class="hotContainer">
 			<view class="hotTitle">热搜榜</view>
 			<view class="hotList">
-				<view class="hotItem" wx:for="{{hotList}}" wx:key="id" data-search-value="{{item.searchWord}}" bindtap="handleSearch">
+				<view class="hotItem" wx:for="{{hotList}}" wx:key="id" data-search-value="{{item.searchWord}}" data-index="{{index}}" bindtap="handleSearch">
 					<text class="hotNum">{{index + 1}}</text>
 					<text class="hotName">{{item.searchWord}}</text>
 					<image wx:if="{{item.iconUrl}}" src="{{item.iconUrl}}" class="hotImg"></image>

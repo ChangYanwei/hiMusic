@@ -26,7 +26,6 @@ Page({
 			ids: id
 		});
 		let song = songInfo.songs[0];
-		// let dt = son
 		let durationTime = moment(song.dt).format("mm:ss");
 		console.log(durationTime);
 		let songDetail = {
@@ -94,11 +93,14 @@ Page({
 
 		// 如果用户的网速比较慢，那么当前音乐依然在播放，此时下一首音乐的资源还没有到来
 		// 此时关闭当前音乐，体验会更好
-		this.backgroundAudioManager.pause();
+		this.backgroundAudioManager.stop();
 
-		// 订阅来自recommeSong页面发回的musicId
+		// 订阅来自recommeSong或者search页面发回的musicId
 		PubSub.subscribe('musicId', (msg, musicId) => {
 			console.log('musicId：', musicId);
+			this.setData({
+				nowTimeSecond:0
+			})
 			// 获取音乐详情
 			this.getSongDetail(musicId);
 			// 音乐自动播放
@@ -177,7 +179,7 @@ Page({
 
 			})
 			PubSub.publish('switchType', 'next');
-			console.log('音乐播放结束：');
+			console.log('音乐播放结束');
 			this.setData({
 				sliderValue:0,
 				currentTime: "00:00"
