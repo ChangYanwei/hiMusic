@@ -48,5 +48,10 @@
 			"pages/recommendSong/recommendSong",
 			"pages/songDetail/songDetail"
 		]
-	}]
+	}],
+	"preloadRule": {
+		"pages/index/index": {
+			"packages": ["songPackage"]
+		}
+	}
 }
