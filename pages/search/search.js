@@ -115,7 +115,7 @@ Page({
 	toSongDetail(event) {
 		let id = event.currentTarget.id;
 		wx.navigateTo({
-			url: '/pages/songDetail/songDetail?id=' + id
+			url: '/songPackage/pages/songDetail/songDetail?id=' + id
 		})
 	},
 

@@ -4,8 +4,6 @@
 		"pages/video/video",
 		"pages/personal/personal",
 		"pages/login/login",
-		"pages/recommendSong/recommendSong",
-		"pages/songDetail/songDetail",
 		"pages/search/search"
 	],
 	"window": {
@@ -18,8 +16,7 @@
 		"color": "#333",
 		"selectedColor": "#d43c33",
 		"backgroundColor": "#fff",
-		"list": [
-			{
+		"list": [{
 				"pagePath": "pages/index/index",
 				"text": "主页",
 				"iconPath": "/static/images/tabs/tab-home.png",
@@ -44,5 +41,12 @@
 	"requiredBackgroundModes": [
 		"audio",
 		"location"
-	]
+	],
+	"subPackages": [{
+		"root": "songPackage",
+		"pages": [
+			"pages/recommendSong/recommendSong",
+			"pages/songDetail/songDetail"
+		]
+	}]
 }

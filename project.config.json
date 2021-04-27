@@ -39,7 +39,7 @@
             "useApiHostProcess": false
       },
       "compileType": "miniprogram",
-      "libVersion": "2.16.0",
+      "libVersion": "2.16.1",
       "appid": "wx0c9d39c7337f16c3",
       "projectname": "hiMusic",
       "debugOptions": {

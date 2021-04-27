@@ -1,4 +1,4 @@
-import request from '../../util/request';
+import request from '../../../util/request';
 import PubSub from 'pubsub-js';
 import moment from 'moment';
 
