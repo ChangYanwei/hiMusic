@@ -12,7 +12,7 @@
             "minified": true,
             "newFeature": false,
             "coverView": true,
-            "nodeModules": true,
+            "nodeModules": false,
             "autoAudits": false,
             "showShadowRootInWxmlPanel": true,
             "scopeDataCheck": false,
@@ -22,8 +22,6 @@
             "uploadWithSourceMap": true,
             "compileHotReLoad": false,
             "useMultiFrameRuntime": true,
-            "useApiHook": true,
-            "useApiHostProcess": false,
             "babelSetting": {
                   "ignore": [],
                   "disablePlugins": [],
@@ -36,7 +34,9 @@
             "userConfirmedBundleSwitch": false,
             "packNpmManually": false,
             "packNpmRelationList": [],
-            "minifyWXSS": true
+            "minifyWXSS": true,
+            "useApiHook": true,
+            "useApiHostProcess": false
       },
       "compileType": "miniprogram",
       "libVersion": "2.16.0",

@@ -1,0 +1,54 @@
+<view class="searchContainer">
+
+	<!-- 顶部搜索框 -->
+	<view class="header">
+		<view class="inputContainer">
+			<text class="iconfont icon-xingtaiduICON_sousuo--"></text>
+			<input type="text" value="{{searchValue}}" bindinput="handleSearchInput"
+				placeholder="{{defaultSearchKey}}" class="searchInput" placeholder-class="placeholder" />
+			<text hidden="{{!searchValue}}" class="iconfont icon-false clearContent"
+				bindtap="clearSearchContent"></text>
+		</view>
+		<text class="cancel" bindtap="toVideo">取消</text>
+	</view>
+
+	<!-- 搜索内容展示 -->
+	<block wx:if="{{searchResultList.length > 0}}">
+		<view class="showSearchContent">
+			<view class="searchContent">搜索内容：{{searchValue}}</view>
+			<view class="searchResult">
+				<view class="resultItem" wx:for="{{searchResultList}}" wx:key="id">
+					<text class="iconfont icon-icon-test searchIcon"></text>
+					<view class="resultText">{{item.name}} - {{item.artists[0].name}}</view>
+				</view>
+			</view>
+		</view>
+	</block>
+
+
+	<!-- 历史记录和热搜榜 -->
+	<block wx:else>
+
+		<!-- 历史记录 -->
+		<view class="historyContainer" wx:if="{{historyList.length > 0}}">
+			<text>搜索历史：</text>
+			<view class="historySearch">
+				<text class="historyItem" wx:for="{{historyList}}" wx:key="*this">{{item}}</text>
+			</view>
+			<text class="iconfont icon-bin clearHistory" bindtap="clearHistory"></text>
+		</view>
+
+		<!-- 热搜榜 -->
+		<view class="hotContainer">
+			<view class="hotTitle">热搜榜</view>
+			<view class="hotList">
+				<view class="hotItem" wx:for="{{hotList}}" wx:key="id">
+					<text class="hotNum">{{index + 1}}</text>
+					<text class="hotName">{{item.searchWord}}</text>
+					<image wx:if="{{item.iconUrl}}" src="{{item.iconUrl}}" class="hotImg"></image>
+				</view>
+			</view>
+		</view>
+	</block>
+
+</view>

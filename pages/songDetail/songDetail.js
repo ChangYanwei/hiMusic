@@ -157,12 +157,10 @@ Page({
 		// 监听音乐的实时播放进度
 		this.backgroundAudioManager.onTimeUpdate(() => {
 			let currentTime = moment(this.backgroundAudioManager.currentTime * 1000).format("mm:ss");
-			// let currentWidth = (this.backgroundAudioManager.currentTime / this.backgroundAudioManager.duration) * 450;
 
 			this.setData({
 				currentTime,
 				nowTimeSecond: this.backgroundAudioManager.currentTime
-				// currentWidth
 			})
 		});
 

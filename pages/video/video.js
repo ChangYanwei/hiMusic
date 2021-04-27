@@ -1,5 +1,5 @@
 import request from '../../util/request';
-
+let appInstance = getApp();
 Page({
 
 	/**
@@ -19,7 +19,6 @@ Page({
 	// 获取导航标签列表
 	getNavList() {
 		request('/video/group/list').then(res => {
-			console.log('标签列表：', res);
 			this.setData({
 				navList: res.data.slice(0, 10),
 				navId: res.data[0].id
@@ -41,7 +40,6 @@ Page({
 		}, 'GET', {
 			cookie: wx.getStorageSync('cookie') ? wx.getStorageSync('cookie').join('') : ""
 		}).then(res => {
-			console.log('视频数据：', res);
 			let index = 0;
 			this.setData({
 				videoList: res.datas.map(item => {
@@ -104,6 +102,12 @@ Page({
 		}
 		// this.videoContext.play();
 
+		// 播放视频时，停止掉正在播放的音乐
+		let backgroundAudioManager = wx.getBackgroundAudioManager();
+		if(appInstance.globalData.isMusicPlay) {
+			backgroundAudioManager.pause();
+		}
+
 	},
 
 	// 视频播放结束，将视频对应的对象删除
@@ -147,6 +151,13 @@ Page({
 		this.data.timer = setTimeout(() => {
 			this.getVideoList(this.data.navId);
 		},1000);
+	},
+
+	// 跳转到搜索页面
+	toSearch(){
+		wx.navigateTo({
+		  url: '/pages/search/search'
+		})
 	},
 
 	/**

@@ -44,6 +44,11 @@
                               "pathName": "pages/songDetail/songDetail",
                               "query": "",
                               "scene": null
+                        },
+                        {
+                              "name": "搜索",
+                              "pathName": "pages/search/search",
+                              "scene": null
                         }
                   ]
             }

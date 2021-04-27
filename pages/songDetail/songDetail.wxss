@@ -90,7 +90,7 @@
 	align-items: center;
 }
 
-.barControl {
+/* .barControl {
 	width: 450rpx;
 	height: 4rpx;
 	margin: auto;
@@ -111,7 +111,7 @@
 	position: absolute;
 	top: -8rpx;
 	right: -20rpx;
-}
+} */
 
 .musicBar {
 	display: inline-block;
