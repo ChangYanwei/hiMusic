@@ -55,7 +55,7 @@ Page({
 		});
 	},
 
-	// 输入框内容发生变化，这个函数返回的值将替换输入框的内容，默认会将event.detail.value返回
+	// 输入框input事件，这个函数返回的值将替换输入框的内容，默认会将event.detail.value返回
 	handleSearchInput(event) {
 		let searchValue = event.detail.value;
 		this.setData({
@@ -107,6 +107,23 @@ Page({
 	// 跳转到视频页
 	toVideo(){
 		wx.navigateBack();
+	},
+
+	// 点击搜索结果中的某一项，跳转到音乐播放界面
+	toSongDetail(event){
+		let id = event.currentTarget.id;
+		wx.navigateTo({
+		  url: '/pages/songDetail/songDetail?id=' + id
+		})
+	},
+
+	// 点击搜索历史或者热搜榜的某一项，自动进行搜索
+	handleSearch(event){	
+		let searchValue = event.currentTarget.dataset.searchValue;
+		this.getSearchResult(searchValue);
+		this.setData({
+			searchValue
+		})
 	},
 
 	/**
