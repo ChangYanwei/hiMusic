@@ -1,5 +1,5 @@
 import request from '../../util/request';
-import PubSub from 'pubsub-js';
+import communication from "../../util/communication";
 
 let startY = 0;
 let currentY = 0;
@@ -15,7 +15,7 @@ Page({
 		transition: "",
 		userinfo: {},
 		isLogin: false,
-		recordSong: [],
+		musicList: [],
 		hasRecord: false
 	},
 
@@ -52,7 +52,7 @@ Page({
 
 	// 跳转到收藏界面
 	toCollection() {
-		wx.navigateTo({
+		wx.redirectTo({
 			url: './collection/collection',
 		})
 	},
@@ -65,18 +65,26 @@ Page({
 		}).then(res => {
 			console.log('播放记录：', res);
 			let index = 0;
-			let recordSong = [];
+			let musicList = [];
 			if (res.allData) {
-				recordSong = res.allData.slice(0, 10).map(item => {
-					item.id = index++;
+				musicList = res.allData.slice(0, 10).map(item => {
+					item.songKey = index++;
 					return item;
 				})
 			}
 
 			this.setData({
-				recordSong,
+				musicList,
 				hasRecord: true
-			})
+			});
+
+			// 因为获取播放记录的数据有时候可能请求不到，先判断一下，有数据的时候再监听
+			if (musicList.length > 0) {
+				// 订阅来自songDetail页面发布的数据
+				let that = this;
+				communication(that);
+			}
+
 		})
 	},
 
@@ -107,39 +115,6 @@ Page({
 
 			this.getUserRecord(userinfo.uid);
 		}
-
-		// 订阅来自songDetail页面发布的数据
-		PubSub.subscribe('switchType', (msg, type) => {
-			let {
-				index,
-				recordSong
-			} = this.data;
-
-			if (type === 'pre') {
-				// 如果当前是第一首，点击上一首，要转到最后一首
-				index = index === 0 ? recordSong.length - 1 : --index;
-			} else if (type === 'next') {
-				// 如果当前是最后一首，点击下一首，要转到第一首
-				index = index === recordSong.length - 1 ? 0 : ++index;
-			} else if(type === 'random') {
-				// 随机播放
-				while(true) {
-					let newIndex = Math.floor(Math.random() * recordSong.length);
-					if(newIndex !== index) {
-						index = newIndex;
-						break;
-					}
-				}
-			} 
-
-			this.setData({
-				index
-			})
-			let id = recordSong[index].song.id;
-			// 将音乐的id发送给songDetail页面
-			PubSub.publish('musicId', id);
-		})
-
 	},
 
 	/**

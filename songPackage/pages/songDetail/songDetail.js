@@ -29,7 +29,6 @@ Page({
 		});
 		let song = songInfo.songs[0];
 		let durationTime = moment(song.dt).format("mm:ss");
-		console.log(durationTime);
 		let songDetail = {
 			name: song.name,
 			picUrl: song.al.picUrl,
@@ -44,7 +43,9 @@ Page({
 			durationTime,
 			sliderMax: song.dt / 1000
 		})
-		console.log(songDetail);
+		// console.log('---',appInstance.globalData.musicId);
+		// console.log('---',id);
+		// console.log('---',appInstance.globalData.musicId === id);
 	},
 
 	// 点击中间播放或暂停按钮
@@ -108,9 +109,12 @@ Page({
 
 		// 订阅来自recommeSong或者search页面发回的musicId
 		PubSub.subscribe('musicId', (msg, musicId) => {
-			console.log('musicId：', musicId);
+			console.log('发回的musicId：', musicId);
+			appInstance.globalData.musicId = musicId;
+			console.log("globalData",appInstance.globalData);
 			this.setData({
-				nowTimeSecond: 0
+				nowTimeSecond: 0,
+				musicId
 			})
 			// 获取音乐详情
 			this.getSongDetail(musicId);
@@ -120,13 +124,10 @@ Page({
 
 			// 判断音乐是否被收藏
 			this.isLike(musicId);
-
 		})
 
 		// 发布消息（切换的类型）给recommeSong页面
 		PubSub.publish('switchType', type);
-
-
 	},
 
 	// 使用slider调整音乐当前的播放时间
@@ -172,7 +173,7 @@ Page({
 	// 判断当前音乐是否被收藏
 	isLike(id) {
 		let collectionMusic = wx.getStorageSync('like');
-		let index = collectionMusic.findIndex(item => item.id === id);
+		let index = collectionMusic.findIndex(item => item.id == id);
 		let isLike = index === -1 ? false : true;
 		this.setData({
 			isLike
@@ -184,14 +185,14 @@ Page({
 	 */
 	onLoad: function (options) {
 		// 原生小程序对路由传参的参数长度有限制，超过限制的内容会被截掉
-		let id = JSON.parse(options.id);
+		let id = parseInt(JSON.parse(options.id));
 		this.getSongDetail(id);
-		let musicId = id;
 
-		if (appInstance.globalData.isMusicPlay && appInstance.globalData.musicId === id) {
+		console.log("onload()",appInstance.globalData, id,typeof id);
+		if (appInstance.globalData.isMusicPlay && appInstance.globalData.musicId == id) {
 			this.setData({
 				isPlay: true,
-				// 判断当前正在播放的和即将要播放的是不是同一首
+				// 判断当前正在播放的和页面上展示的是不是同一首
 				isSame: appInstance.globalData.musicId === id
 			})
 		}
@@ -202,16 +203,14 @@ Page({
 		// 监视音乐的播放和暂停
 		this.backgroundAudioManager = wx.getBackgroundAudioManager();
 		this.backgroundAudioManager.onPlay(() => {
-			console.log('play');
 			this.changePlayState(true);
-			appInstance.globalData.musicId = musicId;
+			console.log("play()", this.data.musicId);
+			appInstance.globalData.musicId = this.data.musicId;
 		});
 		this.backgroundAudioManager.onPause(() => {
-			console.log('pause');
 			this.changePlayState(false);
 		});
 		this.backgroundAudioManager.onStop(() => {
-			console.log('stop');
 			this.changePlayState(false);
 		});
 

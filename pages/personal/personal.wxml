@@ -61,7 +61,7 @@
 			<view class="record">
 				<view wx:if="{{hasRecord}}">
 					<scroll-view enable-flex scroll-x class="recordScroll">
-						<view wx:for="{{recordSong}}" wx:key="id" data-id="{{item.song.id}}" data-index="{{index}}"  class="itemSong" bindtap="toSongDetail">
+						<view wx:for="{{musicList}}" wx:key="songKey" data-id="{{item.song.id}}" data-index="{{index}}"  class="itemSong" bindtap="toSongDetail">
 							<image src="{{item.song.al.picUrl}}"></image>
 							<text>{{item.song.al.name}}</text>
 						</view>

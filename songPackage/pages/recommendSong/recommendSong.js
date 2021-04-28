@@ -1,5 +1,5 @@
 import request from '../../../util/request';
-import PubSub from 'pubsub-js';
+import communication from "../../../util/communication";
 
 Page({
 
@@ -25,7 +25,7 @@ Page({
 	// 获取每日推荐歌曲
 	async getRecommendSong() {
 		wx.showLoading({
-		  title: '努力加载中...'
+			title: '努力加载中...'
 		})
 		let data = await request('/recommend/songs', {}, 'GET', {
 			cookie: wx.getStorageSync('cookie') ? wx.getStorageSync('cookie').join('') : ''
@@ -63,36 +63,8 @@ Page({
 		this.getRecommendSong();
 
 		// 订阅来自songDetail页面发布的数据
-		PubSub.subscribe('switchType', (msg, type) => {
-			let {
-				index,
-				musicList
-			} = this.data;
-
-			if (type === 'pre') {
-				// 如果当前是第一首，点击上一首，要转到最后一首
-				index = index === 0 ? musicList.length - 1 : --index;
-			} else if (type === 'next') {
-				// 如果当前是最后一首，点击下一首，要转到第一首
-				index = index === musicList.length - 1 ? 0 : ++index;
-			} else if(type === 'random') {
-				// 随机播放
-				while(true) {
-					let newIndex = Math.floor(Math.random() * musicList.length);
-					if(newIndex !== index) {
-						index = newIndex;
-						break;
-					}
-				}
-			} 
-
-			this.setData({
-				index
-			})
-			let id = musicList[index].id;
-			// 将音乐的id发送给songDetail页面
-			PubSub.publish('musicId', id);
-		})
+		let that = this;
+		communication(that);
 	},
 
 	/**

@@ -1,6 +1,38 @@
 # hiMusic
 音乐小程序，类似于网易云音乐
 
+## 实现的功能
+
+- 音乐播放、切换、收藏
+- 每日推荐
+- 音乐类视频
+- 搜索功能、搜索历史
+- 登录
+- 播放记录
+- 收藏列表
+
+
+
+## 使用的第三方库
+
+- 使用的API
+
+  - [网易云音乐API](https://neteasecloudmusicapi.vercel.app/#/)
+  - 我搞到了自己的阿里云服务器上，可通过 http://8.131.68.141:9300/xxx 访问，如http://8.131.68.141:9300/banner 
+
+- [pubsub-js](https://github.com/mroderick/PubSubJS) 
+
+  - **用于不同页面之间的通信**
+  - 先订阅再发布
+  - 在音乐播放器页面（songDetail），判断是点击上一首还是下一首时，需要将操作类型传递到每日推荐页面（recommendDetail），因为在这个页面才有全部的数据。找出上/下一首的音乐id后再回传到songDetail
+
+- [momentjs](http://momentjs.cn/)
+
+  - 用于日期时间的格式化
+  - 在音乐播放器页面将音频总的播放时间（单位：ms）转成“mm:ss”（分钟：秒）的形式
+
+  
+
 ## 文件
 ### components文件夹
 - 放置自定义组件
@@ -14,9 +46,21 @@
 
 ### util文件夹
 - 抽取出公共的工具函数
-
 - request.js 用来发送网络请求
 - config.js 用来对服务器的域名进行配置，进一步降低代码的耦合度
+- loginRequest.js 专门用来处理登录请求的
+- communication.js 用于不同页面之间的通信（使用了PubSub第三方库）：订阅音乐播放界面的上一首、下一首、随机播放所产生的事件，事件发生后取出对应的音乐id并回传给音乐播放界面
+
+### songPackage文件夹
+
+- 将每日推荐页面和音乐播放器页面抽离出来形成子包
+- [使用分包的教程](https://developers.weixin.qq.com/miniprogram/dev/framework/subpackages/basic.html)
+
+### template文件夹
+
+- 将音乐列表展示的界面抽离成模板文件
+
+
 
 ## 开发进度
 - 2021.4.19 - 4.20 主页
@@ -37,32 +81,24 @@
 - 4.25 完成音乐播放器
 	- 使用背景音频，BackgroundAudioManager
 	- 实现上一首、下一首、随机播放
-	- 进度条
+	- 音乐播放进度条
 	- 使用slider调整音乐当前播放时间
 - 4.27 基本完成
   - 完成搜索页面的开发
+  - 使用分包
   - 总体来看，页面上展示的功能没有全部实现
+- 4.28 代码优化及解决bug
+   - 新增收藏音乐的功能（存储在本地）
+   - 抽离重复代码
+   - 解决切换音乐时进度条混乱的bug
 
-## 使用的第三方库
 
-- 使用的API
-  - [网易云音乐API](https://neteasecloudmusicapi.vercel.app/#/)
-  - 
 
-- [pubsub-js](https://github.com/mroderick/PubSubJS) 
-	- **用于不同页面之间的通信**
-	- 先订阅再发布
-	- 在音乐播放器页面（songDetail），判断是点击上一首还是下一首时，需要将操作类型传递到每日推荐页面（recommendDetail），因为在这个页面才有全部的数据。找出上/下一首的音乐id后再回传到songDetail
-- [momentjs](http://momentjs.cn/)
-	- 用于日期时间的格式化
-	- 在音乐播放器页面将音频总的播放时间（单位：ms）转成“mm:ss”（分钟：秒）的形式
-
-## 一些小问题
+## 一些记录
 
 - 个人中心页面下拉动画的实现
   - 为元素绑定touchstart、touchmove、touchend事件
   - 在touchstart事件中获取元素的初始clientY值
   - 在touchmove事件中动态获取当前的clientY值，和初始值相减，得出运动距离。再使用transform:translateY()来移动元素
   - 在touchend事件中，元素要回弹，使用transform:translateY(0)
-
-
+- 页面的滚动主要使用scroll-view实现
