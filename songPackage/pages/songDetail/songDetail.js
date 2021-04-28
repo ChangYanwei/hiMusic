@@ -16,11 +16,10 @@ Page({
 		songUrl: "",
 		currentTime: "00:00", //实时播放时间
 		durationTime: "", // 总时长
-		currentWidth: 0,
 		sliderMax: 0,
 		nowTimeSecond: 0, // 当前播放时间的秒数
 		isLike: false, // 当前音乐是否被收藏
-
+		isSame: false, // 当前播放的背景音乐和页面展示的信息是否一致
 	},
 
 	// 获取音乐详情信息
@@ -48,9 +47,11 @@ Page({
 		console.log(songDetail);
 	},
 
+	// 点击中间播放或暂停按钮
 	handleMusicPlay() {
 		this.setData({
-			isPlay: !this.data.isPlay
+			isPlay: !this.data.isPlay,
+			isSame: true // 点击播放时肯定需要展示进度条
 		});
 		let {
 			musicId,
@@ -72,6 +73,13 @@ Page({
 			});
 		}
 
+		// 如果当前正在播放的和即将要播放的不是同一首，将当前的音乐进度设置为0
+		if (appInstance.globalData.musicId !== musicId) {
+			this.setData({
+				nowTimeSecond: 0
+			})
+		}
+
 		let backgroundAudioManager = this.backgroundAudioManager;
 		if (isPlay) {
 			backgroundAudioManager.src = this.data.songUrl;
@@ -90,7 +98,7 @@ Page({
 		appInstance.globalData.isMusicPlay = isPlay;
 	},
 
-	// 切换歌曲
+	// 切换歌曲，点击上一首，下一首，随机播放按钮触发的函数
 	handleSwitch(event) {
 		let type = event.currentTarget.id;
 
@@ -110,24 +118,27 @@ Page({
 			this.musicControl(true, musicId);
 			PubSub.unsubscribe('musicId');
 
+			// 判断音乐是否被收藏
+			this.isLike(musicId);
+
 		})
 
 		// 发布消息（切换的类型）给recommeSong页面
 		PubSub.publish('switchType', type);
 
+
 	},
 
-	// 调整音乐当前的播放时间
+	// 使用slider调整音乐当前的播放时间
 	changeCurrentTime(event) {
 		let value = event.detail.value;
-		console.log(value);
 		this.backgroundAudioManager.seek(value);
 		this.setData({
 			nowTimeSecond: value
 		})
 	},
 
-	// 收藏歌曲
+	// 点击收藏按钮收藏歌曲
 	likeThis() {
 		let id = this.data.musicId;
 		let songDetail = this.data.songDetail;
@@ -145,7 +156,7 @@ Page({
 				icon: "none"
 			})
 		} else {
-			let index = collectionMusic.findIndex(item =>{
+			let index = collectionMusic.findIndex(item => {
 				return item.id === id;
 			});
 			collectionMusic.splice(index, 1);
@@ -156,6 +167,16 @@ Page({
 		}
 
 		wx.setStorageSync('like', collectionMusic);
+	},
+
+	// 判断当前音乐是否被收藏
+	isLike(id) {
+		let collectionMusic = wx.getStorageSync('like');
+		let index = collectionMusic.findIndex(item => item.id === id);
+		let isLike = index === -1 ? false : true;
+		this.setData({
+			isLike
+		})
 	},
 
 	/**
@@ -169,24 +190,20 @@ Page({
 
 		if (appInstance.globalData.isMusicPlay && appInstance.globalData.musicId === id) {
 			this.setData({
-				isPlay: true
+				isPlay: true,
+				// 判断当前正在播放的和即将要播放的是不是同一首
+				isSame: appInstance.globalData.musicId === id
 			})
 		}
 
 		// 判断当前音乐是否被收藏
-		let collectionMusic = wx.getStorageSync('like');
-		if (collectionMusic.findIndex(item => item.id === id) !== -1) {
-			this.setData({
-				isLike: true
-			})
-		}
+		this.isLike(id);
 
 		// 监视音乐的播放和暂停
 		this.backgroundAudioManager = wx.getBackgroundAudioManager();
 		this.backgroundAudioManager.onPlay(() => {
 			console.log('play');
 			this.changePlayState(true);
-
 			appInstance.globalData.musicId = musicId;
 		});
 		this.backgroundAudioManager.onPause(() => {

@@ -1,6 +1,6 @@
 import request from '../../util/request';
+import PubSub from 'pubsub-js';
 
-// pages/personal/personal.js
 let startY = 0;
 let currentY = 0;
 let distanceY = 0;
@@ -15,8 +15,8 @@ Page({
 		transition: "",
 		userinfo: {},
 		isLogin: false,
-		recordSong:[],
-		hasRecord:false
+		recordSong: [],
+		hasRecord: false
 	},
 
 	handleTouchStart(event) {
@@ -51,9 +51,9 @@ Page({
 	},
 
 	// 跳转到收藏界面
-	toCollection(){
+	toCollection() {
 		wx.navigateTo({
-		  url: './collection/collection',
+			url: './collection/collection',
 		})
 	},
 
@@ -63,11 +63,11 @@ Page({
 			uid,
 			type: 0
 		}).then(res => {
-			console.log('播放记录：',res);
+			console.log('播放记录：', res);
 			let index = 0;
 			let recordSong = [];
-			if(res.allData) {
-				recordSong = res.allData.slice(0,10).map(item => {
+			if (res.allData) {
+				recordSong = res.allData.slice(0, 10).map(item => {
 					item.id = index++;
 					return item;
 				})
@@ -75,8 +75,20 @@ Page({
 
 			this.setData({
 				recordSong,
-				hasRecord:true
+				hasRecord: true
 			})
+		})
+	},
+
+	// 点击播放记录，跳转到音乐播放页面
+	toSongDetail(event) {
+		let id = event.currentTarget.dataset.id;
+		let index = event.currentTarget.dataset.index;
+		this.setData({
+			index
+		});
+		wx.navigateTo({
+			url: '/songPackage/pages/songDetail/songDetail?id=' + JSON.stringify(id),
 		})
 	},
 
@@ -92,9 +104,41 @@ Page({
 				userinfo,
 				isLogin: true
 			});
-			
+
 			this.getUserRecord(userinfo.uid);
 		}
+
+		// 订阅来自songDetail页面发布的数据
+		PubSub.subscribe('switchType', (msg, type) => {
+			let {
+				index,
+				recordSong
+			} = this.data;
+
+			if (type === 'pre') {
+				// 如果当前是第一首，点击上一首，要转到最后一首
+				index = index === 0 ? recordSong.length - 1 : --index;
+			} else if (type === 'next') {
+				// 如果当前是最后一首，点击下一首，要转到第一首
+				index = index === recordSong.length - 1 ? 0 : ++index;
+			} else if(type === 'random') {
+				// 随机播放
+				while(true) {
+					let newIndex = Math.floor(Math.random() * recordSong.length);
+					if(newIndex !== index) {
+						index = newIndex;
+						break;
+					}
+				}
+			} 
+
+			this.setData({
+				index
+			})
+			let id = recordSong[index].song.id;
+			// 将音乐的id发送给songDetail页面
+			PubSub.publish('musicId', id);
+		})
 
 	},
 
