@@ -4,7 +4,8 @@
 		"pages/video/video",
 		"pages/personal/personal",
 		"pages/login/login",
-		"pages/search/search"
+		"pages/search/search",
+		"pages/personal/collection/collection"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
@@ -16,7 +17,8 @@
 		"color": "#333",
 		"selectedColor": "#d43c33",
 		"backgroundColor": "#fff",
-		"list": [{
+		"list": [
+			{
 				"pagePath": "pages/index/index",
 				"text": "主页",
 				"iconPath": "/static/images/tabs/tab-home.png",
@@ -42,16 +44,20 @@
 		"audio",
 		"location"
 	],
-	"subPackages": [{
-		"root": "songPackage",
-		"pages": [
-			"pages/recommendSong/recommendSong",
-			"pages/songDetail/songDetail"
-		]
-	}],
+	"subPackages": [
+		{
+			"root": "songPackage",
+			"pages": [
+				"pages/recommendSong/recommendSong",
+				"pages/songDetail/songDetail"
+			]
+		}
+	],
 	"preloadRule": {
 		"pages/index/index": {
-			"packages": ["songPackage"]
+			"packages": [
+				"songPackage"
+			]
 		}
 	}
 }

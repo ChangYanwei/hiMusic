@@ -1,4 +1,3 @@
-import request from '../../../util/request';
 import PubSub from 'pubsub-js';
 
 Page({
@@ -10,7 +9,7 @@ Page({
 		day: "",
 		month: "",
 		musicList: [],
-		index: 0
+		index:[]
 	},
 
 	// 获取当前日期
@@ -20,20 +19,6 @@ Page({
 			day: date.getDate(),
 			month: date.getMonth() + 1
 		})
-	},
-
-	// 获取每日推荐歌曲
-	async getRecommendSong() {
-		wx.showLoading({
-		  title: '努力加载中...'
-		})
-		let data = await request('/recommend/songs', {}, 'GET', {
-			cookie: wx.getStorageSync('cookie') ? wx.getStorageSync('cookie').join('') : ''
-		});
-		this.setData({
-			musicList: data.recommend
-		})
-		wx.hideLoading();
 	},
 
 	// 跳转到音乐播放页面
@@ -48,6 +33,7 @@ Page({
 		})
 	},
 
+
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
@@ -59,8 +45,12 @@ Page({
 				url: '/pages/login/login'
 			})
 		}
+
+		let collectionMuisc = wx.getStorageSync('like');
+		this.setData({
+			musicList: collectionMuisc
+		});
 		this.getDate();
-		this.getRecommendSong();
 
 		// 订阅来自songDetail页面发布的数据
 		PubSub.subscribe('switchType', (msg, type) => {

@@ -29,7 +29,8 @@
 		<text class="iconfont {{isPlay ? 'icon-zantingtingzhi' : 'icon-bofang'}} big "
 			bindtap="handleMusicPlay"></text>
 		<text class="iconfont icon-xiayigexiayishou" id="next" bindtap="handleSwitch"></text>
-		<text class="iconfont icon-gengduo1" id="loop"></text>
+		<text wx:if="{{isLike}}" class="iconfont icon-home_ico_like- likeThis" bindtap="likeThis"></text>
+		<text wx:else  class="iconfont icon-like" bindtap="likeThis"></text>
 	</view>
 
 </view>

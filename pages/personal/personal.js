@@ -50,6 +50,13 @@ Page({
 		})
 	},
 
+	// 跳转到收藏界面
+	toCollection(){
+		wx.navigateTo({
+		  url: './collection/collection',
+		})
+	},
+
 	// 获取用户的播放记录
 	getUserRecord(uid) {
 		request('/user/record', {
@@ -58,10 +65,14 @@ Page({
 		}).then(res => {
 			console.log('播放记录：',res);
 			let index = 0;
-			let recordSong = res.allData.slice(0,10).map(item => {
-				item.id = index++;
-				return item;
-			})
+			let recordSong = [];
+			if(res.allData) {
+				recordSong = res.allData.slice(0,10).map(item => {
+					item.id = index++;
+					return item;
+				})
+			}
+
 			this.setData({
 				recordSong,
 				hasRecord:true

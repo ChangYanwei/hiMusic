@@ -12,15 +12,18 @@ Page({
 	data: {
 		isPlay: false,
 		songDetail: {},
+		musicId: "",
 		songUrl: "",
 		currentTime: "00:00", //实时播放时间
 		durationTime: "", // 总时长
 		currentWidth: 0,
 		sliderMax: 0,
 		nowTimeSecond: 0, // 当前播放时间的秒数
+		isLike: false, // 当前音乐是否被收藏
 
 	},
 
+	// 获取音乐详情信息
 	async getSongDetail(id) {
 		let songInfo = await request('/song/detail', {
 			ids: id
@@ -99,7 +102,7 @@ Page({
 		PubSub.subscribe('musicId', (msg, musicId) => {
 			console.log('musicId：', musicId);
 			this.setData({
-				nowTimeSecond:0
+				nowTimeSecond: 0
 			})
 			// 获取音乐详情
 			this.getSongDetail(musicId);
@@ -124,6 +127,37 @@ Page({
 		})
 	},
 
+	// 收藏歌曲
+	likeThis() {
+		let id = this.data.musicId;
+		let songDetail = this.data.songDetail;
+		songDetail.id = id;
+		console.log("like:", id);
+		let collectionMusic = wx.getStorageSync('like') || [];
+
+		this.setData({
+			isLike: !this.data.isLike
+		});
+		if (this.data.isLike) {
+			collectionMusic.push(songDetail);
+			wx.showToast({
+				title: '收藏成功',
+				icon: "none"
+			})
+		} else {
+			let index = collectionMusic.findIndex(item =>{
+				return item.id === id;
+			});
+			collectionMusic.splice(index, 1);
+			wx.showToast({
+				title: '取消收藏',
+				icon: "none"
+			})
+		}
+
+		wx.setStorageSync('like', collectionMusic);
+	},
+
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
@@ -136,6 +170,14 @@ Page({
 		if (appInstance.globalData.isMusicPlay && appInstance.globalData.musicId === id) {
 			this.setData({
 				isPlay: true
+			})
+		}
+
+		// 判断当前音乐是否被收藏
+		let collectionMusic = wx.getStorageSync('like');
+		if (collectionMusic.findIndex(item => item.id === id) !== -1) {
+			this.setData({
+				isLike: true
 			})
 		}
 
@@ -181,7 +223,7 @@ Page({
 			PubSub.publish('switchType', 'next');
 			console.log('音乐播放结束');
 			this.setData({
-				sliderValue:0,
+				sliderValue: 0,
 				currentTime: "00:00"
 			})
 		})

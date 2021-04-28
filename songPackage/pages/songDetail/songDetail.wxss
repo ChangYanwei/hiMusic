@@ -139,3 +139,7 @@
 	font-size: 80rpx;
 }
 
+.likeThis {
+	color: rgb(233,30,99);
+}
+

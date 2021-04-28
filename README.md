@@ -39,14 +39,30 @@
 	- 实现上一首、下一首、随机播放
 	- 进度条
 	- 使用slider调整音乐当前播放时间
+- 4.27 基本完成
+  - 完成搜索页面的开发
+  - 总体来看，页面上展示的功能没有全部实现
 
 ## 使用的第三方库
+
+- 使用的API
+  - [网易云音乐API](https://neteasecloudmusicapi.vercel.app/#/)
+  - 
+
 - [pubsub-js](https://github.com/mroderick/PubSubJS) 
-	- 用于不同页面之间的通信
+	- **用于不同页面之间的通信**
 	- 先订阅再发布
 	- 在音乐播放器页面（songDetail），判断是点击上一首还是下一首时，需要将操作类型传递到每日推荐页面（recommendDetail），因为在这个页面才有全部的数据。找出上/下一首的音乐id后再回传到songDetail
 - [momentjs](http://momentjs.cn/)
 	- 用于日期时间的格式化
 	- 在音乐播放器页面将音频总的播放时间（单位：ms）转成“mm:ss”（分钟：秒）的形式
- 
+
+## 一些小问题
+
+- 个人中心页面下拉动画的实现
+  - 为元素绑定touchstart、touchmove、touchend事件
+  - 在touchstart事件中获取元素的初始clientY值
+  - 在touchmove事件中动态获取当前的clientY值，和初始值相减，得出运动距离。再使用transform:translateY()来移动元素
+  - 在touchend事件中，元素要回弹，使用transform:translateY(0)
+
 
