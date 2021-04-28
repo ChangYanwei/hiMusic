@@ -50,11 +50,15 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
+		wx.showLoading({
+		  title: '拼命加载中...',
+		})
 		// 轮播图数据
 		request('/banner').then(res => {
 			this.setData({
 				banner: res.banners
-			})
+			});
+			wx.hideLoading();
 		});
 
 		// 推荐歌曲

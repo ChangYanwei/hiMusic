@@ -55,6 +55,7 @@
 	],
 	"preloadRule": {
 		"pages/index/index": {
+			"network": "all",
 			"packages": [
 				"songPackage"
 			]

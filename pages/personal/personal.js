@@ -52,7 +52,7 @@ Page({
 
 	// 跳转到收藏界面
 	toCollection() {
-		wx.redirectTo({
+		wx.navigateTo({
 			url: './collection/collection',
 		})
 	},

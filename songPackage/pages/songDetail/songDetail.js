@@ -24,6 +24,9 @@ Page({
 
 	// 获取音乐详情信息
 	async getSongDetail(id) {
+		wx.showLoading({
+		  title: '正在加载音乐...'
+		});
 		let songInfo = await request('/song/detail', {
 			ids: id
 		});
@@ -42,7 +45,8 @@ Page({
 			musicId: id,
 			durationTime,
 			sliderMax: song.dt / 1000
-		})
+		});
+		wx.hideLoading();
 		// console.log('---',appInstance.globalData.musicId);
 		// console.log('---',id);
 		// console.log('---',appInstance.globalData.musicId === id);
@@ -172,7 +176,7 @@ Page({
 
 	// 判断当前音乐是否被收藏
 	isLike(id) {
-		let collectionMusic = wx.getStorageSync('like');
+		let collectionMusic = wx.getStorageSync('like') || [];
 		let index = collectionMusic.findIndex(item => item.id == id);
 		let isLike = index === -1 ? false : true;
 		this.setData({

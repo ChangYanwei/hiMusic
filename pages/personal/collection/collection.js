@@ -46,11 +46,17 @@ Page({
 			})
 		}
 
-		let collectionMuisc = wx.getStorageSync('like');
+		let collectionMuisc = wx.getStorageSync('like') || [];
 		this.setData({
 			musicList: collectionMuisc
 		});
 		this.getDate();
+		if (collectionMuisc.length === 0) {
+			wx.showModal({
+				content: "您近期还没有收藏音乐哦~",
+				showCancel: false
+			})
+		}
 
 		// 订阅来自songDetail页面发布的数据
 		let that = this;

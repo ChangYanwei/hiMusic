@@ -1,6 +1,24 @@
 # hiMusic
 音乐小程序，类似于网易云音乐 
 
+
+
+## 安装使用步骤
+
+小程序代码
+
+1. `git clone git@github.com:ChangYanwei/hiMusic.git` 
+2. `npm install`
+
+API代码，使用node开启本地服务
+
+1. `git clone git@github.com:Binaryify/NeteaseCloudMusicApi.git`
+2. `npm install`
+3. `npm run start`
+4. [API文档](https://neteasecloudmusicapi.vercel.app/#/)
+
+
+
 ## 实现的功能
 
 - 音乐播放、切换、收藏
@@ -18,6 +36,7 @@
 - 使用的API
   - [网易云音乐API](https://neteasecloudmusicapi.vercel.app/#/)
   - 我搞到了自己的阿里云服务器上，可通过 http://8.131.68.141:9300/xxx 访问，如http://8.131.68.141:9300/banner 
+  - 如果小程序要上线，需要使用https的服务
 - [pubsub-js](https://github.com/mroderick/PubSubJS) 
   - **用于不同页面之间的通信**
   - 先订阅再发布

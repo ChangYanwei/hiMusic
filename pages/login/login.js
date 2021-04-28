@@ -51,7 +51,7 @@ Page({
 		}
 
 		wx.showLoading({
-		  title: '正在登录...',
+			title: '正在登录...',
 		})
 
 		// 后端验证
@@ -91,7 +91,11 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-
+		wx.showModal({
+			title: "温馨提示",
+			content: "需要使用真实的网易账号和密码",
+			showCancel: false
+		})
 	},
 
 	/**

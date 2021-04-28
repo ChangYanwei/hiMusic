@@ -22,16 +22,15 @@ Page({
 			this.setData({
 				navList: res.data.slice(0, 10),
 				navId: res.data[0].id
-			}, function () {
-				this.getVideoList(res.data[0].id);
-			})
+			});
+			this.getVideoList(res.data[0].id);
 		})
 	},
 
-	// 获取视频列表
+	// 获取视频列表数据
 	getVideoList(id) {
 		wx.showLoading({
-			title: '努力加载中'
+			title: '数据加载中'
 		});
 
 		// 获取视频列表需要携带cookie信息
