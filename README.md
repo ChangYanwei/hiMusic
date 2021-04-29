@@ -1,6 +1,7 @@
 # hiMusic
 音乐小程序，类似于网易云音乐 
 
+[TOC]
 
 
 ## 安装使用步骤
@@ -45,6 +46,46 @@ API代码，使用node开启本地服务
   - 用于日期时间的格式化
   - 在音乐播放器页面将音频总的播放时间（单位：ms）转成“mm:ss”（分钟：秒）的形式
 - [iconfont](https://www.iconfont.cn/)
+
+
+
+## 效果图
+
+主页：
+
+<img src="./static/show/1.png" alt="主页" style="zoom:50%;" />
+
+每日推荐：
+
+<img src="./static/show/2.png" alt="每日推荐" style="zoom:50%;" />
+
+音乐播放器：
+
+<img src="./static/show/3.png" alt="音乐播放" style="zoom:50%;" />
+
+视频页面：
+
+<img src="./static/show/4.png" alt="视频页面" style="zoom:50%;" />
+
+搜索页面：
+
+<img src="./static/show/5.png" alt="搜索页面" style="zoom:50%;" />
+
+搜索结果：
+
+<img src="./static/show/6.png" alt="主页" style="zoom:50%;" />
+
+登录界面：
+
+<img src="./static/show/7.png" alt="主页" style="zoom:50%;" />
+
+个人中心：
+
+<img src="./static/show/8.png" alt="主页" style="zoom:50%;" />
+
+收藏列表：
+
+<img src="./static/show/9.png" alt="收藏列表" style="zoom:50%;" />
 
 
 
